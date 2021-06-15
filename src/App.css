@@ -1,0 +1,20 @@
+a:hover{
+    text-decoration: none;
+}
+.tabsContainer{
+    width: 60%;
+    margin-top: 4rem;
+    margin-left: 20%;
+}
+.test{
+    overflow-y: scroll;
+    max-height: 65vh;
+
+}
+.cardImg{
+    width:5rem;
+    height:5rem;
+}
+.activeTab{
+color: yellow;
+}
