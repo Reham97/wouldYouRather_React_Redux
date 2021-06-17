@@ -10,29 +10,29 @@ import ViewQuestion from './components/pages/viewQuestion';
 import ViewQuestionToAnswer from './components/pages/viewQuestionToAnswer';
 import CreateQuestion from './components/pages/createQuestion';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+import PrivateRoute from './components/privateRoute';
 const Routing = () => {
   return (
     <Switch>
-      <Route exact path="/leaderBoard">
+      <PrivateRoute exact path="/leaderBoard" page="leaderBoard">
         <LeaderBoard />
-      </Route>
-      <Route exact path="/add">
+      </PrivateRoute>
+      <PrivateRoute exact path="/add" page="newQuestions">
         <CreateQuestion />
-      </Route>
-      <Route exact path="/log">
+      </PrivateRoute>
+      <Route exact path="/log" page="">
         <Registration />
       </Route>
-      <Route path="/questions/:id?">
+      <PrivateRoute path="/questions/:id?" page="">
         <ViewQuestionToAnswer />
-      </Route>
-      <Route path="/viewQuestion/:id?">
+      </PrivateRoute>
+      <PrivateRoute path="/viewQuestion/:id?" page="">
         <ViewQuestion />
-      </Route>
-      <Route exact path="/">
+      </PrivateRoute>
+      <PrivateRoute exact path="/" page="home">
         <Home />
-      </Route>
-      <Route path="/">
+      </PrivateRoute>
+      <Route path="/" page="">
         <Error404 />
       </Route>
     </Switch>

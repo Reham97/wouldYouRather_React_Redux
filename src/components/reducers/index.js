@@ -1,12 +1,13 @@
 
-import { LOGOUT, LOGIN, CURRENT_PAGE, QUESTIONS, USERS } from '../actions/types'
+import { LOGOUT, LOGIN, CURRENT_PAGE, QUESTIONS, USERS, REDIRECT_PAGE_PATH } from '../actions/types'
 
 export const InitialState = {
     user: null,
-    users:null,
+    users: null,
     questions: null,
     votes: 0,
-    currentPage: null
+    currentPage: null,
+    redirectPagePath: ""
 }
 
 export const rootReducer = (state = InitialState, action) => {
@@ -14,8 +15,8 @@ export const rootReducer = (state = InitialState, action) => {
         case LOGIN: {
             return {
                 ...state,
-                user: action.payload,
-                currentPage: "home"
+                user: action.payload.user,
+                currentPage: action.payload.page
             }
         }
         case LOGOUT: {
@@ -37,6 +38,12 @@ export const rootReducer = (state = InitialState, action) => {
             return {
                 ...state,
                 users: action.payload
+            }
+        }
+        case REDIRECT_PAGE_PATH: {
+            return {
+                ...state,
+                redirectPagePath: action.payload
             }
         }
         default: {

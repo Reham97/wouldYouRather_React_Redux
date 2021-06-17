@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from './resources/icon-user.svg';
 import { _getUsers } from '../_DATA';
 import { connect } from 'react-redux';
-import { login, setUsers } from "./actions/actions";
+import { login, setUsers, setRedirectPagePath } from "./actions/actions";
 import { useHistory } from 'react-router-dom';
 import { Card, Button, DropdownButton, Dropdown } from 'react-bootstrap';
 
@@ -12,7 +12,7 @@ const Registration = (props) => {
   const [usersInfo, setUsersInfo] = useState([]);
   const [dropdownButtonTitle, setDropdownButtonTitle] = useState("Users");
 
-  useEffect(() => {
+  useEffect(() => {    
     _getUsers()
       .then(res => {
         setUsersData(res);
@@ -46,8 +46,15 @@ const Registration = (props) => {
             style={{ padding: "0.5rem 6rem 0.5rem 6rem" }}
             onClick={(e) => {
               if (dropdownButtonTitle !== "Users") {
-                props.login(usersData[dropdownButtonTitle]);
-                history.push("/");
+                props.login(usersData[dropdownButtonTitle], props.currentPage);
+                if(props.redirectPagePath){
+                  let rPath = props.redirectPagePath;
+                  setRedirectPagePath("");
+                  history.push(rPath);
+                }
+                else{
+                  history.push("/");
+                }
               }
             }}
           >
@@ -65,13 +72,14 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     currentPage: state.currentPage,
+    redirectPagePath: state.redirectPagePath
   }
 }
 const mapDispatch = dispatch => {
   return {
-    login: (user) => dispatch(login(user)),
-    setUsers: (users) => dispatch(setUsers(users))
-    
+    login: (user,page) => dispatch(login(user,page)),
+    setUsers: (users) => dispatch(setUsers(users)),
+    setRedirectPagePath: (path) => dispatch(setRedirectPagePath(path)),    
   }
 }
 export default connect(mapStateToProps, mapDispatch)(Registration);

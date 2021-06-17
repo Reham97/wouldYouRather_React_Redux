@@ -72,7 +72,7 @@ const ViewQuestionToAnswer = (props) => {
                       _getUsers()
                         .then(res => {
                           props.setUsers(res);
-                          props.login(res[props.user.id]);
+                          props.login(res[props.user.id], "");
                         });
                     })
                       .then(() => {
@@ -111,7 +111,7 @@ const mapStateToProps = state => {
 }
 const mapDispatch = dispatch => {
   return {
-    login: (user) => dispatch(login(user)),
+    login: (user, page) => dispatch(login(user, page)),
     setUsers: (users) => dispatch(setUsers(users)),
     setQuestions: (questions) => dispatch(setQuestions(questions))
 
