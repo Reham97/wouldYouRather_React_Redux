@@ -34,8 +34,6 @@ export const sortByAnswersQuestions = (users) => {
     }
     return 0;
   });
-  debugger;
-
   return usersList.reverse();
 
 }

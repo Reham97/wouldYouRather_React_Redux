@@ -1,14 +1,14 @@
-import { LOGOUT, LOGIN, CURRENT_PAGE, QUESTIONS, USERS, SUBMITQUESTION } from './types'
+import { LOGOUT, LOGIN, CURRENT_PAGE, QUESTIONS, USERS, REDIRECT_PAGE_PATH } from './types'
 
 export const logout = () => {
     return {
         type: LOGOUT
     }
 }
-export const login = (user) => {
+export const login = (user, page) => {
     return {
         type: LOGIN,
-        payload: user
+        payload: { user, page }
     }
 }
 export const changeCurrentPage = (pageName) => {
@@ -27,5 +27,11 @@ export const setUsers = (users) => {
     return {
         type: USERS,
         payload: users
+    }
+}
+export const setRedirectPagePath = (path) => {
+    return {
+        type: REDIRECT_PAGE_PATH,
+        payload: path
     }
 }

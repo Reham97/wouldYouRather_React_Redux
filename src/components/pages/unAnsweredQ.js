@@ -13,7 +13,6 @@ const UnAnsweredQ = (props) => {
 
       <Row xs={1} md={2} className="g-4 m-2 test">
         {props.questions && sortQuestions(props.questions).map(q => {
-          debugger;;
           if (props.user.answers && !props.user.answers[q.id]) {
             return (
               <Col className="mt-4">

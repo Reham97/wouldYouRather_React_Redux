@@ -16,8 +16,7 @@ const ViewQuestion = (props) => {
       history.
         push("/log");
     }
-    else
-    {setCheckValue(props.user.answers[id]);}
+    else { setCheckValue(props.user.answers[id]); }
 
   }, [props.user])
 
@@ -25,7 +24,7 @@ const ViewQuestion = (props) => {
     // let optionOneVotesPercentage = optionOneVotes.length / Object.keys(users).length * 100;
     // let optionTwoVotesPercentage = optionTwoVotes.length / Object.keys(users).length * 100;
 
-    let totalOptionsVote = optionOneVotes.length +optionTwoVotes.length;
+    let totalOptionsVote = optionOneVotes.length + optionTwoVotes.length;
     let optionOneVotesPercentage = optionOneVotes.length / totalOptionsVote * 100;
     let optionTwoVotesPercentage = optionTwoVotes.length / totalOptionsVote * 100;
 
@@ -41,8 +40,8 @@ const ViewQuestion = (props) => {
           disabled
         />
         <Form.Label column="sm">{optionOneVotes.length} out of {Object.keys(users).length} votes</Form.Label>
-        <ProgressBar animated now={optionOneVotesPercentage.toFixed(3)} label={`${optionOneVotesPercentage.toFixed(3)}%`}/>
-        
+        <ProgressBar animated now={optionOneVotesPercentage.toFixed(3)} label={`${optionOneVotesPercentage.toFixed(3)}%`} />
+
         <Form.Check
           type="radio"
           label={props.questions[id].optionTwo.text}
@@ -52,7 +51,7 @@ const ViewQuestion = (props) => {
           disabled
         />
         <Form.Label column="sm">{optionTwoVotes.length} out of {Object.keys(users).length} votes</Form.Label>
-        <ProgressBar animated now={optionTwoVotesPercentage.toFixed(3)} label={`${optionTwoVotesPercentage.toFixed(3)}%`}/>
+        <ProgressBar animated now={optionTwoVotesPercentage.toFixed(3)} label={`${optionTwoVotesPercentage.toFixed(3)}%`} />
 
       </Col>
 
@@ -71,7 +70,7 @@ const ViewQuestion = (props) => {
           <Col sm={10}>
             <Card.Body>
               <Card.Title> Would you rather .... </Card.Title>
-              
+
               <Form.Group as={Row} className="mb-3">
                 {drowResults(props.questions[id].optionOne.votes, props.questions[id].optionTwo.votes, props.users)}
 
@@ -99,10 +98,9 @@ const mapStateToProps = state => {
 }
 const mapDispatch = dispatch => {
   return {
-    login: (user) => dispatch(login(user)),
+    login: (user, page) => dispatch(login(user, page)),
     setUsers: (users) => dispatch(setUsers(users)),
     setQuestions: (questions) => dispatch(setQuestions(questions))
-
   }
 }
 export default connect(mapStateToProps, mapDispatch)(ViewQuestion);
