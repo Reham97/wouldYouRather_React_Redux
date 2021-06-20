@@ -2,18 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Form, Card, Button } from 'react-bootstrap';
-import { _saveQuestion, _saveQuestionAnswer } from '../../_DATA';
+import { changeCurrentPage, saveQuestion } from '../actions/actions';
 
 const CreateQuestion = (props) => {
   const history = useHistory();
   const [optionOne, setOptionOne] = useState("");
   const [optionTwo, setOptionTwo] = useState("");
-
-  useEffect(() => {
-    if (!props.user) {
-      history.push("/log");
-    }
-  }, [props.user])
 
   return (
     <div className="col d-flex justify-content-center mt-5" style={{ width: "100%" }}>
@@ -53,7 +47,8 @@ const CreateQuestion = (props) => {
                 optionTwoText:optionTwo,
                 author:props.user.id
               }
-              _saveQuestion(question)
+              props.saveQuestion(question, props.user)
+              props.changeCurrentPage("home");
               history.push("/");
               
 
@@ -76,6 +71,8 @@ const mapStateToProps = state => {
 }
 const mapDispatch = dispatch => {
   return {
+    changeCurrentPage: (page) => dispatch(changeCurrentPage(page)),
+    saveQuestion: (question, user) => saveQuestion(dispatch,question, user),
   }
 }
 export default connect(mapStateToProps, mapDispatch)(CreateQuestion)

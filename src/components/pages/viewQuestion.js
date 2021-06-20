@@ -1,34 +1,20 @@
 import { connect } from 'react-redux';
-import { useParams } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
-import { _saveQuestionAnswer, _getUsers, _getQuestions } from '../../_DATA';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Card, ProgressBar, Col, Row } from 'react-bootstrap';
-import { login, setUsers, setQuestions } from "../actions/actions";
+import { login, setQuestions } from "../actions/actions";
 
 const ViewQuestion = (props) => {
-  const { id } = useParams();
-  const history = useHistory();
-  const [checkValue, setCheckValue] = useState("");
-
-  useEffect(() => {
-    if (!props.user) {
-      history.
-        push("/log");
-    }
-    else { setCheckValue(props.user.answers[id]); }
-
-  }, [props.user])
+  console.log(props);
+  const id = props.id;
+  const [checkValue, setCheckValue] = useState(props.user.answers[id] ? props.user.answers[id] : "");
 
   const drowResults = (optionOneVotes, optionTwoVotes, users) => {
-    // let optionOneVotesPercentage = optionOneVotes.length / Object.keys(users).length * 100;
-    // let optionTwoVotesPercentage = optionTwoVotes.length / Object.keys(users).length * 100;
 
     let totalOptionsVote = optionOneVotes.length + optionTwoVotes.length;
     let optionOneVotesPercentage = optionOneVotes.length / totalOptionsVote * 100;
     let optionTwoVotesPercentage = optionTwoVotes.length / totalOptionsVote * 100;
 
-    debugger;
     return (
       <Col sm={10}>
         <Form.Check
@@ -93,13 +79,13 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     users: state.users,
-    questions: state.questions
+    questions: state.questions,
+    redirectPagePath: state.redirectPagePath
   }
 }
 const mapDispatch = dispatch => {
   return {
     login: (user, page) => dispatch(login(user, page)),
-    setUsers: (users) => dispatch(setUsers(users)),
     setQuestions: (questions) => dispatch(setQuestions(questions))
   }
 }

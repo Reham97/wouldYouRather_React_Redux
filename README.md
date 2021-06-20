@@ -33,7 +33,7 @@ helper file :- for helper functions.<br />
 | /add              | Create New Question |
 | /leaderBoard              | View Leader Board |
 | /questions/:id?    | View Question to Answer |
-| /viewQuestion/:id               | View Question |
+| /questions/:id?               | View Question |
 
 
 ## Installation

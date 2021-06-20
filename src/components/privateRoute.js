@@ -6,7 +6,6 @@ import { login } from "./actions/actions";
 
 function PrivateRoute (props) {
   const determineRenderComponent =(props)=>{ 
-    debugger;
     if(props.user)
     {
       return props.children;
@@ -14,7 +13,7 @@ function PrivateRoute (props) {
     else
     {
       props.login(null,props.page)
-      props.setRedirectPagePath(props.location);
+      props.setRedirectPagePath(props.location.pathname);
       return <Redirect to='/log' />
     }
   }
