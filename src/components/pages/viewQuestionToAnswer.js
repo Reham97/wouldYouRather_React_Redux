@@ -5,13 +5,10 @@ import { Form, Card, Button, Col, Row } from 'react-bootstrap';
 import { login, saveQuestionAnswer, changeCurrentPage } from "../actions/actions";
 
 const ViewQuestionToAnswer = (props) => {
-  console.log(props);
-  debugger;
   const id  = props.id;
   const history = useHistory();
   const [checkValue, setCheckValue] = useState("");
 
-  debugger;
   return (
     <div className="col d-flex justify-content-center mt-5" style={{ width: "100%" }}>
       {id && props.questions && <Card style={{ width: "50%" }}>
@@ -53,9 +50,7 @@ const ViewQuestionToAnswer = (props) => {
               <Button variant="primary"
                 onClick={() => {
                   if (checkValue) {
-                    debugger;
                     let data = { authedUser: props.user.id, qid: id, answer: checkValue }
-                    debugger;
                     props.saveQuestionAnswer(data, props.user);
                     props.changeCurrentPage("home");
                     history.push("/");

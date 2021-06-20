@@ -47,7 +47,6 @@ const CreateQuestion = (props) => {
                 optionTwoText:optionTwo,
                 author:props.user.id
               }
-              debugger;
               props.saveQuestion(question, props.user)
               props.changeCurrentPage("home");
               history.push("/");

@@ -40,7 +40,6 @@ export const rootReducer = (state = InitialState, action) => {
             }
         }
         case USER: {
-            debugger;
             return {
                 ...state,
                 user: state.users[state.user.id]

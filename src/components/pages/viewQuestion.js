@@ -6,7 +6,6 @@ import { login, setQuestions } from "../actions/actions";
 
 const ViewQuestion = (props) => {
   console.log(props);
-  debugger;
   const id = props.id;
   const [checkValue, setCheckValue] = useState(props.user.answers[id] ? props.user.answers[id] : "");
 

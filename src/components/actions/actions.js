@@ -51,14 +51,12 @@ export const setUser = async (dispatch) => {
     dispatch({ type: USER, payload: {} })
 }
 export const saveQuestion = async (dispatch,question, user) => {
-    debugger;
     await _saveQuestion(question)
     await getUsers(dispatch);
     await getQuestions(dispatch);
     await setUser(dispatch);
 }
 export const saveQuestionAnswer = async (dispatch,answer,user) => {
-    debugger;
     await _saveQuestionAnswer(answer)
     await getUsers(dispatch);
     await getQuestions(dispatch);
