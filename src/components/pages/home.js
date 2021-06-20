@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AnsweredQ from './answeredQ';
 import { connect } from 'react-redux';
 import UnAnsweredQ from './unAnsweredQ';
 import { Tabs, Tab } from 'react-bootstrap';
-import { _getQuestions } from '../../_DATA';
-import { useHistory } from 'react-router-dom';
 import { setQuestions } from "../actions/actions";
 
 const Home = (props) => {
-  const history = useHistory();
-
-  useEffect(() => {
-    if (!props.user) {
-      history.push("/log");
-    }
-
-    _getQuestions()
-      .then(res => {
-        props.setQuestions(res);
-      });
-
-  }, [props.user])
 
   return (
     <div className="tabsContainer">

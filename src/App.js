@@ -6,11 +6,11 @@ import store from './components/store/index';
 import Registration from './components/login';
 import Error404 from './components/pages/error404';
 import LeaderBoard from './components/pages/leaderBoard';
-import ViewQuestion from './components/pages/viewQuestion';
-import ViewQuestionToAnswer from './components/pages/viewQuestionToAnswer';
+import QuestionScreen from './components/questionScreen';
 import CreateQuestion from './components/pages/createQuestion';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/privateRoute';
+
 const Routing = () => {
   return (
     <Switch>
@@ -22,16 +22,16 @@ const Routing = () => {
       </PrivateRoute>
       <Route exact path="/log" page="">
         <Registration />
-      </Route>
-      <PrivateRoute path="/questions/:id?" page="">
-        <ViewQuestionToAnswer />
-      </PrivateRoute>
-      <PrivateRoute path="/viewQuestion/:id?" page="">
-        <ViewQuestion />
+      </Route>     
+      <PrivateRoute path="/questions/:id?" page="questions">
+        <QuestionScreen />
       </PrivateRoute>
       <PrivateRoute exact path="/" page="home">
         <Home />
       </PrivateRoute>
+      <Route path="/error" page="">
+        <Error404 />
+      </Route>
       <Route path="/" page="">
         <Error404 />
       </Route>

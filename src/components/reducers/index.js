@@ -1,9 +1,8 @@
-
-import { LOGOUT, LOGIN, CURRENT_PAGE, QUESTIONS, USERS, REDIRECT_PAGE_PATH } from '../actions/types'
+import { LOGOUT, LOGIN, CURRENT_PAGE, QUESTIONS, USERS, USER,REDIRECT_PAGE_PATH } from '../actions/types'
 
 export const InitialState = {
     user: null,
-    users: null,
+    users: {},
     questions: null,
     votes: 0,
     currentPage: null,
@@ -40,6 +39,13 @@ export const rootReducer = (state = InitialState, action) => {
                 users: action.payload
             }
         }
+        case USER: {
+            debugger;
+            return {
+                ...state,
+                user: state.users[state.user.id]
+            }
+        }
         case REDIRECT_PAGE_PATH: {
             return {
                 ...state,
@@ -50,5 +56,4 @@ export const rootReducer = (state = InitialState, action) => {
             return state;
         }
     }
-
 }

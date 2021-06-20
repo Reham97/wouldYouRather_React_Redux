@@ -1,23 +1,17 @@
 import { connect } from 'react-redux';
-import { useParams } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
-import { _saveQuestionAnswer, _getUsers, _getQuestions } from '../../_DATA';
 import React, { useEffect, useState } from 'react';
 import { Form, Card, Button, Col, Row } from 'react-bootstrap';
-import { login, setUsers, setQuestions } from "../actions/actions";
+import { login, saveQuestionAnswer, changeCurrentPage } from "../actions/actions";
 
 const ViewQuestionToAnswer = (props) => {
-  const { id } = useParams();
+  console.log(props);
+  debugger;
+  const id  = props.id;
   const history = useHistory();
   const [checkValue, setCheckValue] = useState("");
 
-  useEffect(() => {
-    if (!props.user) {
-      history.push("/log");
-    }
-  }, [props.user])
-
-
+  debugger;
   return (
     <div className="col d-flex justify-content-center mt-5" style={{ width: "100%" }}>
       {id && props.questions && <Card style={{ width: "50%" }}>
@@ -59,31 +53,12 @@ const ViewQuestionToAnswer = (props) => {
               <Button variant="primary"
                 onClick={() => {
                   if (checkValue) {
-
-
+                    debugger;
                     let data = { authedUser: props.user.id, qid: id, answer: checkValue }
-
-                    var promise = new Promise((resolve, reject) => {
-                      _saveQuestionAnswer(data);
-                      resolve("Promise resolved successfully");
-                    });
-
-                    promise.then(() => {
-                      _getUsers()
-                        .then(res => {
-                          props.setUsers(res);
-                          props.login(res[props.user.id], "");
-                        });
-                    })
-                      .then(() => {
-                        _getQuestions()
-                          .then(res => {
-                            props.setQuestions(res);
-                          });
-                      })
-                      .then(() => {
-                        history.push("/");
-                      });
+                    debugger;
+                    props.saveQuestionAnswer(data, props.user);
+                    props.changeCurrentPage("home");
+                    history.push("/");
                   }
                 }}
               >
@@ -106,14 +81,16 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     users: state.users,
-    questions: state.questions
+    questions: state.questions,
+    redirectPagePath: state.redirectPagePath
+
   }
 }
 const mapDispatch = dispatch => {
   return {
     login: (user, page) => dispatch(login(user, page)),
-    setUsers: (users) => dispatch(setUsers(users)),
-    setQuestions: (questions) => dispatch(setQuestions(questions))
+    changeCurrentPage: (page) => dispatch(changeCurrentPage(page)),
+    saveQuestionAnswer:(question, user)=>saveQuestionAnswer(dispatch,question, user)
 
   }
 }

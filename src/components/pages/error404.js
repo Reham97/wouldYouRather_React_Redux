@@ -1,15 +1,8 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Col } from 'react-bootstrap';
 import errorImg from '../resources/error404.gif';
 
 const Error404 = (props) => {
-  const history = useHistory();
-  // useEffect(() => {
-  //   if (!props.user) {
-  //     history.push("/log");
-  //   }
-  // }, [props.user])
 
   return (
 

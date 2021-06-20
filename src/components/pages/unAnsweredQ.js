@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Row, Col, Card, Button } from 'react-bootstrap';
-import { changeCurrentPage } from '../actions/actions';
-import {sortQuestions} from "../helper";
+import { changeCurrentPage, setRedirectPagePath } from '../actions/actions';
+import { sortQuestions } from "../helper";
 
 const UnAnsweredQ = (props) => {
   const history = useHistory();
@@ -15,9 +15,9 @@ const UnAnsweredQ = (props) => {
         {props.questions && sortQuestions(props.questions).map(q => {
           if (props.user.answers && !props.user.answers[q.id]) {
             return (
-              <Col className="mt-4">
+              <Col className="mt-4" key={q.id}>
                 <Card>
-                  <Row>
+                  <Row key={q.id}>
                     <Col sm={2}>
                       <Card.Img variant="top" src={props.users && props.users[props.questions[q.id].author].avatarURL} className="cardImg" />
                     </Col>
@@ -27,12 +27,14 @@ const UnAnsweredQ = (props) => {
                         <Card.Text>
                           ...{props.questions[q.id].optionOne.text.substring(0, 5)}...
                         </Card.Text>
-                        <Button 
-                        variant="outline-secondary" 
-                        onClick={()=> {
-                          history.push("/questions/"+q.id)
-                          props.changeCurrentPage("questions")
-                          }}>View Pull</Button>
+                        <Button
+                          variant="outline-secondary"
+                          onClick={() => {
+                            history.push("/questions/" + q.id)
+                            props.setRedirectPagePath("/questions/" + q.id);
+                            props.changeCurrentPage("questions")
+                          }}
+                        >View Pull</Button>
                       </Card.Body>
                     </Col>
                   </Row>
@@ -43,8 +45,6 @@ const UnAnsweredQ = (props) => {
           else {
             return <></>
           }
-
-
         })}
       </Row>
 
@@ -62,7 +62,8 @@ const mapStateToProps = state => {
 }
 const mapDispatch = dispatch => {
   return {
-    changeCurrentPage: (page) => dispatch(changeCurrentPage(page))
+    changeCurrentPage: (page) => dispatch(changeCurrentPage(page)),
+    setRedirectPagePath: (path) => dispatch(setRedirectPagePath(path)),
   }
 }
 export default connect(mapStateToProps, mapDispatch)(UnAnsweredQ);
