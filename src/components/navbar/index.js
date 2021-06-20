@@ -24,6 +24,8 @@ const NavBar = (props) => {
                         onClick={e => {
                             e.preventDefault();
                             props.logout();
+                            props.getUsers();
+                            props.getQuestions();
                             history.push("/log");
                         }}
                     >Log out</Button>{' '}
